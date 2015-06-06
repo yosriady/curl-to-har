@@ -2,7 +2,7 @@ var _ = require('underscore');
 var s = require("underscore.string");
 var parse = require('shell-quote').parse;
 
-var FLAG_CHAR = "--";
+var FLAG_CHAR = "-";
 var ARGUMENT_MAP = {
     "request": "method"
 }
@@ -41,6 +41,12 @@ function buildHAR(args){
         "cookies": [],
         "postData" : {}
     }
+
+    // Handle url as first argument without --url flag
+    if (args[0][0] !== FLAG_CHAR){
+        args.unshift("--url");
+    }
+
     argument_pairs = args.chunk(2);
     _.each(argument_pairs, function(elem, idx, l){
         var key = elem[0].slice(FLAG_CHAR.length).toLowerCase();
@@ -50,18 +56,18 @@ function buildHAR(args){
             return;
         }
         switch(key) {
-            case "url":
+            case "-url":
                 har['url'] = value.substring(0, value.indexOf("?")) || value
                 har['queryString'] = parseQueryString(value);
                 break;
-            case "H":
-            case "header":
+            case "h":
+            case "-header":
                 har['headers'].push({
                     name: value.split(":")[0].trim(),
                     value: value.split(":")[1].trim()
                 })
                 break;
-            case "cookie":
+            case "-cookie":
                 var cookies = [];
                 _.each(value.split("; "), function(element){
                     cookies.push({
@@ -71,14 +77,14 @@ function buildHAR(args){
                 })
                 har['cookies'] = cookies;
                 break;
-            case "data":
+            case "-data":
                 har['postData'] = {
                     "mimeType": "application/json",
                     "text" : JSON.parse(value)
                 }
                 break;
-            case "X":
-            case "request":
+            case "x":
+            case "-request":
                 har['method'] = value
                 break;
             default:
@@ -97,13 +103,11 @@ function curlToHAR(str) {
         return;
     }
     var args = tokens.slice(1);
-    if (args.length % 2 !== 0) {
-        console.log("Odd number of arguments");
+    if (args.length % 2 !== 0 && !args[1][0] == FLAG_CHAR) {
+        console.log("Invalid number of arguments");
         return;
     }
     return buildHAR(args);
 }
-
-console.log(curlToHAR("curl --url 'http://example.com/api/kittens' --header 'Authorization: meowmeowmeow'"));
 
 module.exports = curlToHAR;
