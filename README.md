@@ -38,5 +38,13 @@ console.log(HAR);
 
 ```
 
+# Running tests
+
+```
+npm test
+```
+
 For more usage examples, check out the test directory.
-For any errors, please submit an issue here. Pull requests most welcome!
+
+--
+For any errors, please submit an issue here. Pull requests are most welcome!
