@@ -20,18 +20,20 @@ Array.prototype.chunk = function(chunkSize) {
 function parseQueryString(url){
     var hashes = [];
     var qs = url.slice(url.indexOf("?")).slice(1);
-    _.each(qs.split("&"), function(pair){
-        hashes.push({
-            name: pair.split("=")[0],
-            value: pair.split("=")[1]
+    if (!_.isEmpty(qs)){
+        _.each(qs.split("&"), function(pair){
+            hashes.push({
+                name: pair.split("=")[0],
+                value: pair.split("=")[1]
+            });
         });
-    });
+    }
     return hashes;
 }
 
 function buildHAR(args){
     var har = {
-        "method": "",
+        "method": "GET",
         "url": "",
         "httpVersion": "HTTP/1.1",
         "queryString" : [],
@@ -49,7 +51,7 @@ function buildHAR(args){
         }
         switch(key) {
             case "url":
-                har['url'] = value.substring(0, value.indexOf("?"))
+                har['url'] = value.substring(0, value.indexOf("?")) || value
                 har['queryString'] = parseQueryString(value);
                 break;
             case "H":
@@ -102,4 +104,6 @@ function curlToHAR(str) {
     return buildHAR(args);
 }
 
-module.exports = curlToHar;
+console.log(curlToHAR("curl --url 'http://example.com/api/kittens' --header 'Authorization: meowmeowmeow'"));
+
+module.exports = curlToHAR;

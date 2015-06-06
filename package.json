@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "curl shell command to HAR Request Object converter",
   "main": "index.js",
+  "devDependencies": {
+    "tape": "~2.3.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/index.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +16,7 @@
   "keywords": [
     "curl",
     "har",
-    "convert",
+    "convert"
   ],
   "author": {
     "name": "Yos Riady",
