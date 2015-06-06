@@ -1,0 +1,29 @@
+{
+  "name": "curl-to-har",
+  "version": "1.0.0",
+  "description": "curl shell command to HAR Request Object converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/Leventhan/curl-to-har"
+  },
+  "keywords": [
+    "curl",
+    "har",
+    "convert",
+  ],
+  "author": {
+    "name": "Yos Riady",
+    "email": "yosriady@gmail.com",
+    "url": "http://yosriady.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "shell-quote": "^1.4.3",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.0.3"
+  }
+}
