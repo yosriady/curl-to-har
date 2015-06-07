@@ -1,6 +1,6 @@
 {
   "name": "curl-to-har",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "curl shell command to HAR Request Object converter",
   "main": "index.js",
   "devDependencies": {

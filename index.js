@@ -77,6 +77,7 @@ function buildHAR(args){
                 })
                 har['cookies'] = cookies;
                 break;
+            case "d":
             case "-data":
                 har['postData'] = {
                     "mimeType": "application/json",
