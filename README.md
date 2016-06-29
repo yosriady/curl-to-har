@@ -32,7 +32,7 @@ npm install curl-to-har
 ```
 var curlToHar = require('curl-to-har');
 var curlString = "curl --request POST --url 'http://mockbin.com/request?foo=bar&foo=baz' --header 'accept: application/json' --header 'content-type: application/json' --cookie 'foo=bar; bar=baz' --data '{\"foo\": \"bar\"}'"
-var HAR = curlToHAR(input)
+var HAR = curlToHar(input)
 
 console.log(HAR);
 
